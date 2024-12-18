@@ -5,13 +5,13 @@ import (
 	"net/http"
 )
 
-const version string = "v2"
+const version string = "v3"
 
 func main() {
 	http.HandleFunc("/query", handleQuery)
 	http.HandleFunc("/health", handleHealth)
 
-	log.Printf("Starting server on :1234")
+	log.Printf("Starting server on: 1234")
 	if err := http.ListenAndServe(":1234", nil); err != nil {
 		log.Fatal(err)
 	}
