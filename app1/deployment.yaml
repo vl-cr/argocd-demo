@@ -1,0 +1,68 @@
+# TODO: manage namespace with Argo CD
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-demo
+  namespace: prod
+  labels:
+    app: argocd-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: argocd-demo
+  template:
+    metadata:
+      labels:
+        app: argocd-demo
+    spec:
+      containers:
+        - name: argocd-demo
+          image: 891376963549.dkr.ecr.eu-west-2.amazonaws.com/argocd-demo:v1
+          ports:
+            - containerPort: 1234
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 1234
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 1234
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            allowPrivilegeEscalation: false
+          resources:
+            limits:
+              cpu: "200m"
+              memory: "128Mi"
+            requests:
+              cpu: "100m"
+              memory: "64Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: argocd-demo-service
+  namespace: prod
+# annotations:
+#   prometheus.io/scrape: "true"
+#   prometheus.io/path: "/metrics"
+#   prometheus.io/port: '80'
+spec:
+  selector:
+    app: argocd-demo
+  ports:
+    - port: 80
+      targetPort: 1234
+  type: ClusterIP
