@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: argocd-demo
-          image: 891376963549.dkr.ecr.eu-west-2.amazonaws.com/argocd-demo:v1
+          image: 891376963549.dkr.ecr.eu-west-2.amazonaws.com/argocd-demo:v2
           ports:
             - containerPort: 1234
           livenessProbe:
