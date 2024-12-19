@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: argocd-demo
-  namespace: prod
+  namespace: argocd-demo
   labels:
     app: argocd-demo
 spec:
@@ -48,7 +48,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: argocd-demo-service
-  namespace: prod
+  namespace: argocd-demo
 # annotations:
 #   prometheus.io/scrape: "true"
 #   prometheus.io/path: "/metrics"
