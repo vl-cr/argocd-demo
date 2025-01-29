@@ -1,8 +1,9 @@
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: argocd-demo
-  namespace: argocd-demo
+  namespace: lz-ml
   labels:
     app: argocd-demo
 spec:
@@ -17,7 +18,7 @@ spec:
     spec:
       containers:
         - name: argocd-demo
-          image: 891376963549.dkr.ecr.eu-west-2.amazonaws.com/argocd-demo:v2
+          image: 891376963549.dkr.ecr.eu-west-2.amazonaws.com/argocd-demo:v3
           ports:
             - containerPort: 1234
           livenessProbe:
@@ -48,7 +49,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: argocd-demo-service
-  namespace: argocd-demo
+  namespace: lz-ml
 # annotations:
 #   prometheus.io/scrape: "true"
 #   prometheus.io/path: "/metrics"
